@@ -27,11 +27,21 @@ const listOfAnimals = [
 ];
 
 function App() {
+  const [animals, setAnimals] =useState(INITIAL_ANIMALS);
+  
+  const updateBookmark = (animalId, bookmarkBoolean) => {
+    const updatedAnimals = animals.map(animal =>{
+      if (animal.id === animalId) {
+        return { ...animal, bookmark: bookmarkBoolean}
+      }
+    })
+  }
   // Comments outside of JSX (but still in JavaScript (aka JS that is not "returned")) can still be //'s.
   return (
     <section>
       <h1>The Sapphire Animal Adoption Agency</h1>
-      <AnimalList listOfAnimals={ listOfAnimals }></AnimalList>
+      {/* What the props are called below is what they will be reffered to inside animalist */}
+      <AnimalList listOfAnimals={ listOfAnimals } updateBookmark={updateBookmark}></AnimalList>
     </section>
   );
 }
