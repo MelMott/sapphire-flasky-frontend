@@ -5,14 +5,17 @@ import { useState } from 'react';
 
 const Animal = (props) => {
 
-    const [isBookmarked, setIsBookmarked] = useState(false);
+    const [isBookmarked, setIsBookmarked] = useState(props.isBookmarked);
 
     const toggleBookmark = () => {
+        // We want event handler function to do two things:
+            // update component's internal state
+            // update that information to SSOT
         // We want even handler function to do two things
             // update component's internal state
             // update that info to SSOT
         setIsBookmarked(!isBookmarked);
-        props.updateBookmark(props.id)
+        props.updateBookmark(props.id);
     }
 
     const altText = `Photo of ${props.name}`;
@@ -39,7 +42,7 @@ Animal.propTypes = {
     adopted: PropTypes.bool,
     age: PropTypes.number,
     photo: PropTypes.string,
-    isBookmarked: PropTypes.bool, 
+    isBookmarked: PropTypes.bool,
     updateBookmark: PropTypes.func
 }
 

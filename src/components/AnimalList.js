@@ -19,11 +19,11 @@ const AnimalList = (props) => {
                 listOfAnimals.map((creature) => (
                     <li key={creature.id}>
                         <Animal
-                            id={creature.id}
+                            id = { creature.id }
                             name={ creature.name }
                             species={ creature.species }
                             photo={ creature.photo }
-                            isBookmarked = {creature.isBookmarked}
+                            isBookmarked = { creature.isBookmarked }
                             updateBookmark = { props.updateBookmark }
                         />
                     </li>)
@@ -44,10 +44,9 @@ AnimalList.propTypes = {
             age: PropTypes.number,
             photo: PropTypes.string,
             isBookmarked: PropTypes.bool
-            
         })
-    ),
-    updateBookmark:PropTypes.func
+    ), 
+    updateBookmark: PropTypes.func
 }
 
 export default AnimalList;
