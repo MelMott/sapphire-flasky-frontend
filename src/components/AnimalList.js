@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Animal from './Animal';
 
-const AnimalList = ({ listOfAnimals }) => {
+const AnimalList = (props) => {
     // If the parameter is props instead, you can do these!
     const listOfAnimals = props.listOfAnimals;
     // const { listOfAnimals } = props;
@@ -19,10 +19,12 @@ const AnimalList = ({ listOfAnimals }) => {
                 listOfAnimals.map((creature) => (
                     <li key={creature.id}>
                         <Animal
+                            id={creature.id}
                             name={ creature.name }
                             species={ creature.species }
                             photo={ creature.photo }
-                            updateBookmark = { creature.updateBookmark }
+                            isBookmarked = {creature.isBookmarked}
+                            updateBookmark = { props.updateBookmark }
                         />
                     </li>)
                 ) 
@@ -40,10 +42,12 @@ AnimalList.propTypes = {
             species: PropTypes.string.isRequired,
             adopted: PropTypes.bool,
             age: PropTypes.number,
-            photo: PropTypes.string 
-            bookmark: PropTypes.func
+            photo: PropTypes.string,
+            isBookmarked: PropTypes.bool
+            
         })
-    )
+    ),
+    updateBookmark:PropTypes.func
 }
 
 export default AnimalList;
