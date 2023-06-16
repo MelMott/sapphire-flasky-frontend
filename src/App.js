@@ -51,7 +51,7 @@ function App() {
         return {...animal}
       }
     })
-    }
+    
   };
   // Comments outside of JSX (but still in JavaScript (aka JS that is not "returned")) can still be //'s.
   return (
