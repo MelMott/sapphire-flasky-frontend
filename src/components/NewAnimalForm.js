@@ -12,7 +12,7 @@ function NewAnimalForm(props) {
   const [animalFormData, setAnimalFormData] = useState(INITIAL_FORM_DATA);
 
   const anInputChanged = (evt) => {
-    console.log(evt);
+    // console.log(evt);
 
     if (evt.target.name === "age" && evt.target.value < 0) {
       return
@@ -28,14 +28,14 @@ function NewAnimalForm(props) {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
+    console.log("Congrats! You pressed submit!!")
     props.createNewAnimal();
-    console.log("Congrats! You pressed submit")
   }
 
   return (
     <section className="AnimalList">
       <h2>Create New Animal</h2>
-      <form className="stack" addAnimal={handleFormSubmit}>
+      <form className="stack">
         <label htmlFor="animalName">Name:</label>
         <input
           id="animalName"
@@ -60,14 +60,12 @@ function NewAnimalForm(props) {
           value={ animalFormData.species }
           onChange={ anInputChanged }
         />
-        <input type="submit" value="addNewAnimal"/>
       </form>
     </section>
   )
 }
 
 NewAnimalForm.propTypes = {
-  createNewAnimal: PropTypes.func.isRequired
   // Probably a function prop will go in here later?
 }
 

@@ -68,7 +68,7 @@ function App() {
 
   const createNewAnimal = (newAnimalInfo) => {
     console.log("Inside app.js & createNewAnimal function")
-  }
+  } 
 
   // Comments outside of JSX (but still in JavaScript (aka JS that is not "returned")) can still be //'s.
   return (
