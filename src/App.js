@@ -67,8 +67,15 @@ function App() {
   }
 
   const createNewAnimal = (newAnimalInfo) => {
-    console.log("Inside app.js & createNewAnimal function")
-  } 
+    console.log(newAnimalInfo);
+    console.log("Inside app.js & createNewAnimal function");
+
+    axios.post('http://127.0.0.1:5000/animals', newAnimalInfo)
+    .then()
+    .catch((error) => {
+      console.log(error);
+    })
+  }
 
   // Comments outside of JSX (but still in JavaScript (aka JS that is not "returned")) can still be //'s.
   return (
