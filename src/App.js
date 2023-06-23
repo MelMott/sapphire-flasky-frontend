@@ -1,45 +1,25 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import './App.css';
 import AnimalList from './components/AnimalList';
-
-const INITIAL_ANIMALS = [
-  {
-    id: 100,
-    name: "Violet",
-    species: "pitbull mix",
-    isBookmarked: true,
-  },
-  {
-    id: 101,
-    name: "Norman",
-    species: "Pyrenees puppy",
-    isBookmarked: false,
-  },
-  {
-    id: 102,
-    name: "Juni",
-    species: "Poodle",
-    photo: "https://images.dog.ceo/breeds/poodle-toy/n02113624_333.jpg",
-    isBookmarked: false,
-  },
-  {
-    id: 103,
-    name: "Sabine",
-    species: "Dog",
-    isBookmarked: false,
-  },
-  {
-    id: 104,
-    name: "Paprika and Braven",
-    species: "Kittens",
-    photo:
-      "https://www.felinefriendsofsammamish.com/app/pet/img/000359-008.jpg",
-    isBookmarked: false,
-  },
-];
+import NewAnimalForm from "./components/NewAnimalForm";
+import axios from 'axios';
 
 function App() {
-  const [animals, setAnimals] = useState(INITIAL_ANIMALS);
+  const [animals, setAnimals] = useState([]);
+
+  useEffect( () => {
+    axios.get('http://127.0.0.1:5000/animals')
+      .then( (response) => {
+        const initialAnimalData = [];
+        response.data.forEach(animal => {
+          initialAnimalData.push(animal);
+        });
+        setAnimals(initialAnimalData);
+      })
+      .catch( (error) => {
+        console.log('error', error);
+      });
+  }, []);
 
   const updateBookmark = (animalId) => {
 
@@ -65,18 +45,25 @@ function App() {
   }
 
   const updateDelete = (animalId) => {
-    const updatedAnimals = animals.map((animal) => {
-      if (animal.id !== animalId) {
-        return { ...animal };
-      }
-    });
+    axios.delete(`http://127.0.0.1:5000/animals/${animalId}`)
+      .then((response) => {
+        const updatedAnimals = animals.map((animal) => {
+          if (animal.id !== animalId) {
+            return { ...animal };
+          }
+        });
 
-    // taken from https://stackoverflow.com/questions/28607451/removing-undefined-values-from-array
-    const filteredUpdatedData = updatedAnimals.filter(function (element) {
-      return element !== undefined;
-    });
+        // taken from https://stackoverflow.com/questions/28607451/removing-undefined-values-from-array
+        const filteredUpdatedData = updatedAnimals.filter(function (element) {
+          return element !== undefined;
+        });
 
-    setAnimals(filteredUpdatedData);
+        setAnimals(filteredUpdatedData);
+      })
+      .catch((error) => {
+        // if it's not successful, print out error details for now
+        console.log('could not delete animal', error, error.response);
+      });
   }
 
 
@@ -84,6 +71,7 @@ function App() {
   return (
     <section>
       <h1>The Sapphire Animal Adoption Agency</h1>
+      <NewAnimalForm />
       <AnimalList 
         listOfAnimals={animals} 
         updateBookmark={updateBookmark} 
